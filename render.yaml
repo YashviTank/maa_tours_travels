@@ -1,0 +1,50 @@
+services:
+  - type: web
+    name: maa-tours-laravel
+    env: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: false
+      - key: APP_KEY
+        generateValue: true
+      - key: APP_URL
+        value: https://maa-tours-travels.onrender.com
+      - key: LOG_CHANNEL
+        value: stderr
+      - key: DB_CONNECTION
+        value: mysql
+      - key: DB_HOST
+        fromDatabase:
+          name: maa-tours-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: maa-tours-db
+          property: port
+      - key: DB_DATABASE
+        fromDatabase:
+          name: maa-tours-db
+          property: database
+      - key: DB_USERNAME
+        fromDatabase:
+          name: maa-tours-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: maa-tours-db
+          property: password
+      - key: SESSION_DRIVER
+        value: file
+      - key: CACHE_STORE
+        value: file
+
+databases:
+  - name: maa-tours-db
+    plan: free
+    databaseName: maa_tours
+    user: maa_tours_user
