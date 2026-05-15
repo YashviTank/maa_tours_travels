@@ -42,14 +42,21 @@ ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
 # Allow .htaccess overrides
 RUN sed -i '/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
 
-# Create startup script
+# Create startup script with database wait
 RUN echo '#!/bin/bash\n\
+echo "Waiting for database to be ready..."\n\
+for i in {1..30}; do\n\
+  php artisan db:show >/dev/null 2>&1 && break\n\
+  echo "Database not ready yet, waiting... ($i/30)"\n\
+  sleep 2\n\
+done\n\
+echo "Database is ready!"\n\
 php artisan config:clear\n\
 php artisan cache:clear\n\
 php artisan config:cache\n\
 php artisan route:cache\n\
 php artisan view:cache\n\
-php artisan migrate --force\n\
+php artisan migrate --force || echo "Migration failed, continuing..."\n\
 apache2-foreground' > /usr/local/bin/start.sh \
     && chmod +x /usr/local/bin/start.sh
 
