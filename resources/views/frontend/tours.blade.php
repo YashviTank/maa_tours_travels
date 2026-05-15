@@ -26,6 +26,37 @@
         </div>
     </div>
 </section>
+
+<section style="padding: 60px 0; background: #f9fafb;">
+    <div class="container">
+        <h2 style="text-align: center; margin-bottom: 50px; color: #1f2937; font-size: 36px; font-weight: 700;">Special Offers</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto;">
+            <div style="background: white; padding: 40px 30px; border-radius: 12px; box-shadow: 0 2px 15px rgba(0,0,0,0.08); text-align: center; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 8px 30px rgba(37,99,235,0.15)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 15px rgba(0,0,0,0.08)';">
+                <div style="font-size: 60px; margin-bottom: 20px;">🎁</div>
+                <h3 style="font-size: 20px; margin-bottom: 15px; color: #1f2937; font-weight: 600;">Early Bird Discount</h3>
+                <p style="color: #6b7280; line-height: 1.6; font-size: 15px;">Book 3 months in advance and save up to 20% on selected packages.</p>
+            </div>
+            
+            <div style="background: white; padding: 40px 30px; border-radius: 12px; box-shadow: 0 2px 15px rgba(0,0,0,0.08); text-align: center; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 8px 30px rgba(37,99,235,0.15)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 15px rgba(0,0,0,0.08)';">
+                <div style="font-size: 60px; margin-bottom: 20px;">👨‍👩‍👧‍👦</div>
+                <h3 style="font-size: 20px; margin-bottom: 15px; color: #1f2937; font-weight: 600;">Group Discounts</h3>
+                <p style="color: #6b7280; line-height: 1.6; font-size: 15px;">Travel with 6+ people and get special group rates and benefits.</p>
+            </div>
+            
+            <div style="background: white; padding: 40px 30px; border-radius: 12px; box-shadow: 0 2px 15px rgba(0,0,0,0.08); text-align: center; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 8px 30px rgba(37,99,235,0.15)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 15px rgba(0,0,0,0.08)';">
+                <div style="font-size: 60px; margin-bottom: 20px;">💑</div>
+                <h3 style="font-size: 20px; margin-bottom: 15px; color: #1f2937; font-weight: 600;">Honeymoon Special</h3>
+                <p style="color: #6b7280; line-height: 1.6; font-size: 15px;">Exclusive honeymoon packages with romantic extras and upgrades.</p>
+            </div>
+            
+            <div style="background: white; padding: 40px 30px; border-radius: 12px; box-shadow: 0 2px 15px rgba(0,0,0,0.08); text-align: center; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-8px)'; this.style.boxShadow='0 8px 30px rgba(37,99,235,0.15)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 15px rgba(0,0,0,0.08)';">
+                <div style="font-size: 60px; margin-bottom: 20px;">🎂</div>
+                <h3 style="font-size: 20px; margin-bottom: 15px; color: #1f2937; font-weight: 600;">Birthday Surprise</h3>
+                <p style="color: #6b7280; line-height: 1.6; font-size: 15px;">Celebrate your birthday on tour with special treats and arrangements.</p>
+            </div>
+        </div>
+    </div>
+</section>
 @endsection
 
 @push('styles')
