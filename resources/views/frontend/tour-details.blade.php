@@ -176,7 +176,7 @@
 
 @push('scripts')
 <script>
-const tourId = {{ $tourId }};
+const tourId = {!! json_encode($tourId) !!};
 
 async function loadTourDetails() {
     try {
