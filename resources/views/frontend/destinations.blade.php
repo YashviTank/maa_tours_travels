@@ -24,28 +24,42 @@
 async function loadDestinations() {
     try {
         const response = await fetch('/api/tours');
-        const data = await response.json();
         
-        if (data.success && data.data.length > 0) {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        console.log('Destinations API response:', data);
+        
+        if (data.success && data.data && data.data.length > 0) {
             const container = document.getElementById('destinations-container');
             container.innerHTML = data.data.map(tour => `
                 <div class="destination-card">
-                    <div class="destination-image" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('${tour.image_url}');">
+                    <div class="destination-image" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('${tour.image_url || 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800'}');">
                         <div class="destination-badge">${tour.category || 'Popular'}</div>
                     </div>
                     <div class="destination-content">
-                        <h3>${tour.destination}</h3>
-                        <p>${tour.overview || tour.description}</p>
+                        <h3>${tour.destination || tour.title}</h3>
+                        <p>${(tour.overview || tour.description || 'Explore this amazing destination').substring(0, 120)}...</p>
                         <div class="destination-footer">
-                            <span class="price">From ₹${Number(tour.price).toLocaleString()}</span>
+                            <span class="price">From ₹${Number(tour.price || 0).toLocaleString()}</span>
                             <a href="{{ route('tours') }}" class="btn-link">Explore →</a>
                         </div>
                     </div>
                 </div>
             `).join('');
+        } else {
+            document.getElementById('destinations-container').innerHTML = '<p style="text-align: center; padding: 40px;">No destinations available at the moment.</p>';
         }
     } catch (error) {
         console.error('Error loading destinations:', error);
+        document.getElementById('destinations-container').innerHTML = `
+            <div style="text-align: center; padding: 40px;">
+                <p style="color: red; margin-bottom: 10px;">Error loading destinations: ${error.message}</p>
+                <p style="color: #6b7280;">Please contact us for available destinations.</p>
+            </div>
+        `;
     }
 }
 

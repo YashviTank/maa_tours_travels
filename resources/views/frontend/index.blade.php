@@ -72,28 +72,37 @@
 async function loadPopularTours() {
     try {
         const response = await fetch('/api/tours');
-        const data = await response.json();
         
-        if (data.success && data.data.length > 0) {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        console.log('Popular tours API response:', data);
+        
+        if (data.success && data.data && data.data.length > 0) {
             const container = document.getElementById('popular-tours');
             container.innerHTML = data.data.slice(0, 3).map(tour => `
                 <div class="destination-card">
-                    <div class="destination-image" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('${tour.image_url}');">
+                    <div class="destination-image" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('${tour.image_url || 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800'}');">
                         ${tour.category === 'adventure' ? '<div class="destination-badge">Popular</div>' : ''}
                     </div>
                     <div class="destination-content">
-                        <h3>${tour.title}</h3>
-                        <p>${tour.description.substring(0, 100)}...</p>
+                        <h3>${tour.title || tour.destination}</h3>
+                        <p>${(tour.description || 'Explore this amazing destination').substring(0, 100)}...</p>
                         <div class="destination-footer">
-                            <span class="price">From ₹${Number(tour.price).toLocaleString()}</span>
+                            <span class="price">From ₹${Number(tour.price || 0).toLocaleString()}</span>
                             <a href="{{ route('tours') }}" class="btn-link">View Details →</a>
                         </div>
                     </div>
                 </div>
             `).join('');
+        } else {
+            document.getElementById('popular-tours').innerHTML = '<p style="text-align: center; padding: 40px;">No tours available at the moment.</p>';
         }
     } catch (error) {
         console.error('Error loading tours:', error);
+        document.getElementById('popular-tours').innerHTML = '<p style="text-align: center; padding: 40px; color: #6b7280;">Unable to load tours at this time.</p>';
     }
 }
 
