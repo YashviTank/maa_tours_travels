@@ -15,6 +15,10 @@ Route::get('/tours', function () {
     return view('frontend.tours');
 })->name('tours');
 
+Route::get('/tour/{id}', function ($id) {
+    return view('frontend.tour-details', ['tourId' => $id]);
+})->name('tour.details');
+
 Route::get('/destinations', function () {
     return view('frontend.destinations');
 })->name('destinations');
