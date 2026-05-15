@@ -10,30 +10,35 @@
     </div>
 </section>
 
-<section class="contact-section">
+<section class="contact-section" style="padding: 60px 0;">
     <div class="container">
-        <div class="contact-info-grid">
-            <div class="info-card">
-                <div class="info-card-icon">📧</div>
-                <h4>Email</h4>
-                <p><a href="mailto:maatours79@gmail.com">maatours79@gmail.com</a></p>
+        <div class="contact-info-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-bottom: 60px;">
+            <div class="info-card" style="background: white; padding: 40px 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); text-align: center;">
+                <div class="info-card-icon" style="width: 60px; height: 60px; background: #2563eb; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: white; font-size: 24px;">�</div>
+                <h4 style="margin-bottom: 15px; color: #1f2937; font-size: 18px;">Visit Us</h4>
+                <p style="color: #6b7280; line-height: 1.6;">F-12 Krishna Complex<br>Near Jai Ganesh Toyota<br>150ft Ring Road<br>Rajkot, Gujarat 360005<br>India</p>
             </div>
-            <div class="info-card">
-                <div class="info-card-icon">📞</div>
-                <h4>Phone</h4>
-                <p>+91 9173157999<br>+91 6354071777</p>
+            <div class="info-card" style="background: white; padding: 40px 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); text-align: center;">
+                <div class="info-card-icon" style="width: 60px; height: 60px; background: #2563eb; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: white; font-size: 24px;">📞</div>
+                <h4 style="margin-bottom: 15px; color: #1f2937; font-size: 18px;">Call Us</h4>
+                <p style="color: #6b7280; line-height: 1.6;"><a href="tel:+919173157999" style="color: #2563eb; text-decoration: none;">+91 9173157999</a><br><a href="tel:+916354071777" style="color: #2563eb; text-decoration: none;">+91 6354071777</a></p>
             </div>
-            <div class="info-card">
-                <div class="info-card-icon">📍</div>
-                <h4>Address</h4>
-                <p>F-12 Krishna Complex<br>Near Jai Ganesh Toyota<br>150ft Ring Road<br>Rajkot, Gujarat 360005</p>
+            <div class="info-card" style="background: white; padding: 40px 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); text-align: center;">
+                <div class="info-card-icon" style="width: 60px; height: 60px; background: #2563eb; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: white; font-size: 24px;">�</div>
+                <h4 style="margin-bottom: 15px; color: #1f2937; font-size: 18px;">Email Us</h4>
+                <p style="color: #6b7280; line-height: 1.6;"><a href="mailto:maatours79@gmail.com" style="color: #2563eb; text-decoration: none;">maatours79@gmail.com</a></p>
+            </div>
+            <div class="info-card" style="background: white; padding: 40px 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); text-align: center;">
+                <div class="info-card-icon" style="width: 60px; height: 60px; background: #2563eb; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: white; font-size: 24px;">🕐</div>
+                <h4 style="margin-bottom: 15px; color: #1f2937; font-size: 18px;">Business Hours</h4>
+                <p style="color: #6b7280; line-height: 1.6;">Monday - Friday: 9:00 AM - 6:00 PM<br><br>Saturday: 10:00 AM - 4:00 PM<br>Sunday: Closed</p>
             </div>
         </div>
         
-        <div class="contact-form-wrapper">
-            <div class="contact-form">
-                <h3>Send us a Message</h3>
-                <p class="form-subtitle">We'd love to hear from you</p>
+        <div class="contact-form-wrapper" style="margin-top: 60px; background: #f9fafb; padding: 60px 0;">
+            <div class="contact-form" style="max-width: 600px; margin: 0 auto; background: white; padding: 40px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                <h3 style="text-align: center; margin-bottom: 10px; color: #1f2937; font-size: 28px;">Send us a Message</h3>
+                <p class="form-subtitle" style="text-align: center; color: #6b7280; margin-bottom: 30px;">We'd love to hear from you</p>
                 <form id="contactForm">
                     <div class="form-group">
                         <label for="name">Name *</label>
