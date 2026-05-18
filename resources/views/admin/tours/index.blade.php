@@ -38,18 +38,20 @@
                     @endif
                 </td>
                 <td>
-                    <a href="{{ route('admin.tours.edit', $tour) }}" class="btn btn-sm btn-primary">Edit</a>
-                    <form action="{{ route('admin.tours.toggle-status', $tour) }}" method="POST" style="display: inline;">
-                        @csrf
-                        <button type="submit" class="btn btn-sm btn-warning">
-                            {{ $tour->status === 'active' ? 'Deactivate' : 'Activate' }}
-                        </button>
-                    </form>
-                    <form action="{{ route('admin.tours.destroy', $tour) }}" method="POST" style="display: inline;" onsubmit="return confirm('Are you sure?')">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                    </form>
+                    <div style="display: flex; gap: 8px; align-items: center;">
+                        <a href="{{ route('admin.tours.edit', $tour) }}" class="btn btn-sm btn-primary">Edit</a>
+                        <form action="{{ route('admin.tours.toggle-status', $tour) }}" method="POST" style="margin: 0;">
+                            @csrf
+                            <button type="submit" class="btn btn-sm btn-warning">
+                                {{ $tour->status === 'active' ? 'Deactivate' : 'Activate' }}
+                            </button>
+                        </form>
+                        <form action="{{ route('admin.tours.destroy', $tour) }}" method="POST" style="margin: 0;" onsubmit="return confirm('Are you sure?')">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                        </form>
+                    </div>
                 </td>
             </tr>
             @empty

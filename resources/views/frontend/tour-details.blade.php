@@ -48,7 +48,7 @@
                 <!-- Detailed Itinerary -->
                 <div style="margin-bottom: 50px;">
                     <h2 style="font-size: 32px; margin-bottom: 20px; color: #1f2937; font-weight: 600;">Detailed Itinerary</h2>
-                    <div id="tour-itinerary" style="color: #4b5563; line-height: 1.8;">
+                    <div id="tour-itinerary" style="display: grid; gap: 15px;">
                         <p>Loading itinerary...</p>
                     </div>
                 </div>
@@ -144,26 +144,29 @@
 .inclusion-item, .exclusion-item {
     display: flex;
     align-items: flex-start;
-    gap: 12px;
-    padding: 10px;
+    gap: 10px;
+    padding: 8px 0;
     color: #374151;
     font-size: 15px;
+    line-height: 1.6;
 }
 
 .inclusion-item::before {
     content: '✓';
     color: #10b981;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 16px;
     flex-shrink: 0;
+    margin-top: 2px;
 }
 
 .exclusion-item::before {
     content: '✗';
     color: #ef4444;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 16px;
     flex-shrink: 0;
+    margin-top: 2px;
 }
 
 @media (max-width: 768px) {
@@ -222,11 +225,41 @@ async function loadTourDetails() {
                 `;
             }
             
-            // Update itinerary
+            // Update itinerary with expandable day cards
             if (tour.itinerary) {
-                document.getElementById('tour-itinerary').innerHTML = `<p style="white-space: pre-line;">${tour.itinerary}</p>`;
+                const itineraryLines = tour.itinerary.split('\n').filter(line => line.trim());
+                let itineraryHTML = '';
+                let currentDay = null;
+                let dayContent = [];
+                
+                itineraryLines.forEach((line, index) => {
+                    const dayMatch = line.match(/^Day\s*(\d+)/i);
+                    if (dayMatch) {
+                        if (currentDay) {
+                            itineraryHTML += createItineraryDay(currentDay, dayContent.join('<br>'));
+                        }
+                        currentDay = { number: dayMatch[1], title: line.replace(/^Day\s*\d+\s*[:-]?\s*/i, '').trim() };
+                        dayContent = [];
+                    } else if (currentDay && line.trim()) {
+                        dayContent.push(line.trim());
+                    }
+                });
+                
+                if (currentDay) {
+                    itineraryHTML += createItineraryDay(currentDay, dayContent.join('<br>'));
+                }
+                
+                document.getElementById('tour-itinerary').innerHTML = itineraryHTML || '<p>Detailed day-by-day itinerary will be provided upon booking.</p>';
             } else {
-                document.getElementById('tour-itinerary').innerHTML = `<p>Detailed day-by-day itinerary will be provided upon booking. Contact us for more information.</p>`;
+                // Default itinerary example
+                document.getElementById('tour-itinerary').innerHTML = `
+                    ${createItineraryDay({number: '1', title: 'Arrival in Srinagar', badge: 'Arrival Day'}, 'Morning: Arrive at Srinagar Airport. Our representative will meet you and transfer you to your hotel/houseboat.\n\nAfternoon: Check-in and freshen up. Enjoy lunch at the hotel.\n\nEvening: Take a relaxing Shikara ride on the famous Dal Lake. Visit the floating vegetable market and enjoy the sunset over the lake.\n\nNight: Dinner and overnight stay at houseboat/hotel in Srinagar.\n\nMeals: Lunch, Dinner')}
+                    ${createItineraryDay({number: '2', title: 'Srinagar Local Sightseeing', badge: 'Sightseeing Day'}, 'Morning: After breakfast, proceed for a full day sightseeing tour of Srinagar. Visit the famous Mughal Gardens - Nishat Bagh, Shalimar Bagh, and Chashme Shahi.\n\nAfternoon: Visit Shankaracharya Temple situated on a hilltop offering panoramic views of Srinagar city. Enjoy lunch at a local restaurant.\n\nEvening: Explore the local markets and shop for Kashmiri handicrafts, Pashmina shawls, and dry fruits.\n\nNight: Return to hotel. Dinner and overnight stay.\n\nMeals: Breakfast, Dinner')}
+                    ${createItineraryDay({number: '3', title: 'Srinagar to Gulmarg', badge: 'Adventure Day'}, 'Morning: After breakfast, drive to Gulmarg (approx 2 hours). Known as the "Meadow of Flowers", Gulmarg is famous for its scenic beauty.\n\nAfternoon: Take the Gondola cable car ride (at your own cost) to Khilanmarg and Apharwat Peak. Enjoy breathtaking views of snow-capped mountains. Optional activities include horse riding and photography.\n\nEvening: Return to Srinagar. Evening at leisure.\n\nNight: Dinner and overnight stay at hotel.\n\nMeals: Breakfast, Dinner')}
+                    ${createItineraryDay({number: '4', title: 'Srinagar to Pahalgam', badge: 'Scenic Day'}, 'Morning: After breakfast, check out and drive to Pahalgam (approx 3 hours), the "Valley of Shepherds". En route, visit Saffron fields and Awantipora ruins.\n\nAfternoon: Arrive in Pahalgam and check in to hotel. After lunch, explore Betaab Valley and Aru Valley, famous for their stunning landscapes.\n\nEvening: Enjoy a riverside walk along the Lidder River. Optional activities include horse riding to Baisaran Valley.\n\nNight: Dinner and overnight stay at Pahalgam hotel.\n\nMeals: Breakfast, Dinner')}
+                    ${createItineraryDay({number: '5', title: 'Pahalgam to Srinagar', badge: 'Leisure Day'}, 'Morning: After breakfast, day at leisure in Pahalgam. You can opt for activities like trekking, fishing, or visit Chandanwari (at your own cost).\n\nAfternoon: Check out and drive back to Srinagar. Enjoy lunch en route.\n\nEvening: Arrive in Srinagar. Evening free for shopping or relaxation.\n\nNight: Dinner and overnight stay at hotel.\n\nMeals: Breakfast, Dinner')}
+                    ${createItineraryDay({number: '6', title: 'Departure from Srinagar', badge: 'Departure Day'}, 'Morning: After breakfast, check out from hotel. Our representative will transfer you to Srinagar Airport for your onward journey.\n\nAfternoon: Depart with beautiful memories of Kashmir.\n\nMeals: Breakfast')}
+                `;
             }
             
             // Update inclusions
@@ -237,9 +270,11 @@ async function loadTourDetails() {
                 ).join('');
             } else {
                 document.getElementById('tour-inclusions').innerHTML = `
-                    <div class="inclusion-item">Accommodation in hotels/houseboats</div>
-                    <div class="inclusion-item">Daily breakfast and dinner</div>
+                    <div class="inclusion-item">Accommodation for 6 nights (3 nights in Srinagar, 2 nights in Pahalgam, 1 night houseboat)</div>
+                    <div class="inclusion-item">Daily breakfast, lunch, and dinner</div>
                     <div class="inclusion-item">All transfers and sightseeing by private vehicle</div>
+                    <div class="inclusion-item">Shikara ride on Dal Lake</div>
+                    <div class="inclusion-item">All toll taxes, parking fees, and driver allowances</div>
                     <div class="inclusion-item">Professional tour guide</div>
                     <div class="inclusion-item">All applicable taxes</div>
                 `;
@@ -253,11 +288,12 @@ async function loadTourDetails() {
                 ).join('');
             } else {
                 document.getElementById('tour-exclusions').innerHTML = `
-                    <div class="exclusion-item">Airfare/train tickets to starting point</div>
-                    <div class="exclusion-item">Lunch and snacks</div>
-                    <div class="exclusion-item">Personal expenses and tips</div>
+                    <div class="exclusion-item">Airfare to and from Srinagar</div>
+                    <div class="exclusion-item">Gulmarg Gondola tickets</div>
+                    <div class="exclusion-item">Horse riding and pony rides</div>
                     <div class="exclusion-item">Travel insurance</div>
-                    <div class="exclusion-item">Any activities not mentioned in inclusions</div>
+                    <div class="exclusion-item">Any adventure activities not mentioned in inclusions</div>
+                    <div class="exclusion-item">Tips and gratuities</div>
                 `;
             }
             
@@ -272,6 +308,62 @@ async function loadTourDetails() {
     } catch (error) {
         console.error('Error loading tour details:', error);
         showError(error.message);
+    }
+}
+
+function createItineraryDay(day, content) {
+    const dayId = `day-${day.number}`;
+    
+    // Parse content for time-based sections and meals
+    let parsedContent = content;
+    let mealsInfo = '';
+    
+    // Extract meals information if present
+    const mealsMatch = content.match(/Meals?:\s*([^\n]+)/i);
+    if (mealsMatch) {
+        mealsInfo = mealsMatch[1].trim();
+        parsedContent = content.replace(/Meals?:\s*[^\n]+/i, '').trim();
+    }
+    
+    // Format time-based sections (Morning, Afternoon, Evening, Night)
+    parsedContent = parsedContent
+        .replace(/(Morning|Afternoon|Evening|Night):/gi, '<strong style="color: #1f2937; font-weight: 600;">$1:</strong>')
+        .replace(/\n/g, '<br>');
+    
+    return `
+        <div class="itinerary-day" style="background: white; border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; margin-bottom: 15px;">
+            <div class="itinerary-header" onclick="toggleDay('${dayId}')" style="background: #2563eb; color: white; padding: 20px 25px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: all 0.3s ease;">
+                <div style="flex: 1;">
+                    <span style="font-weight: 700; font-size: 18px;">Day ${day.number}: ${day.title}</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <span style="background: rgba(255,255,255,0.2); padding: 6px 16px; border-radius: 20px; font-size: 13px; font-weight: 500;">${day.badge || 'Tour Day'}</span>
+                    <span class="toggle-icon" id="${dayId}-icon" style="font-size: 20px; transition: transform 0.3s ease;">▼</span>
+                </div>
+            </div>
+            <div class="itinerary-content" id="${dayId}" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease;">
+                <div style="padding: 30px; color: #4b5563; line-height: 1.8; font-size: 15px;">
+                    ${parsedContent}
+                    ${mealsInfo ? `<div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: 15px 20px; margin-top: 20px; border-radius: 4px;">
+                        <span style="font-size: 18px; margin-right: 8px;">🍽️</span>
+                        <strong style="color: #1f2937;">Meals:</strong> ${mealsInfo}
+                    </div>` : ''}
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function toggleDay(dayId) {
+    const content = document.getElementById(dayId);
+    const icon = document.getElementById(dayId + '-icon');
+    
+    if (content.style.maxHeight && content.style.maxHeight !== '0px') {
+        content.style.maxHeight = '0';
+        icon.style.transform = 'rotate(0deg)';
+    } else {
+        content.style.maxHeight = content.scrollHeight + 'px';
+        icon.style.transform = 'rotate(180deg)';
     }
 }
 

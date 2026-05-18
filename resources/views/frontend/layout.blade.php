@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'MAA Tours and Travels - Explore the World')</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    @stack('styles')
 </head>
 <body>
     <nav class="navbar">
@@ -18,6 +20,7 @@
                     <li><a href="{{ route('about') }}" class="{{ request()->routeIs('about') ? 'active' : '' }}">About</a></li>
                     <li><a href="{{ route('destinations') }}" class="{{ request()->routeIs('destinations') ? 'active' : '' }}">Destinations</a></li>
                     <li><a href="{{ route('tours') }}" class="{{ request()->routeIs('tours') ? 'active' : '' }}">Tours</a></li>
+                    <li><a href="{{ route('reviews') }}" class="{{ request()->routeIs('reviews') ? 'active' : '' }}">Reviews</a></li>
                     <li><a href="{{ route('contact') }}" class="{{ request()->routeIs('contact') ? 'active' : '' }}">Contact</a></li>
                     <li><a href="{{ route('booking') }}" class="btn-primary">Book Now</a></li>
                 </ul>

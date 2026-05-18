@@ -254,6 +254,7 @@
                 <a href="{{ route('admin.tours.index') }}" class="{{ request()->routeIs('admin.tours.*') ? 'active' : '' }}">🎫 Tours</a>
                 <a href="{{ route('admin.bookings.index') }}" class="{{ request()->routeIs('admin.bookings.*') ? 'active' : '' }}">📅 Bookings</a>
                 <a href="{{ route('admin.contacts.index') }}" class="{{ request()->routeIs('admin.contacts.*') ? 'active' : '' }}">✉️ Messages</a>
+                <a href="{{ route('admin.reviews.index') }}" class="{{ request()->routeIs('admin.reviews.*') ? 'active' : '' }}">⭐ Reviews</a>
                 <a href="{{ route('home') }}" target="_blank">🌐 View Website</a>
                 <a href="{{ route('admin.logout') }}">🚪 Logout</a>
             </nav>

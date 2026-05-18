@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\BookingController as AdminBookingController;
 use App\Http\Controllers\Admin\ContactController as AdminContactController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\ReviewController as AdminReviewController;
 use App\Http\Controllers\Admin\TourController as AdminTourController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,6 +32,10 @@ Route::get('/contact', function () {
     return view('frontend.contact');
 })->name('contact');
 
+Route::get('/reviews', function () {
+    return view('frontend.reviews');
+})->name('reviews');
+
 Route::get('/booking', function () {
     return view('frontend.booking');
 })->name('booking');
@@ -53,5 +58,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('contacts', [AdminContactController::class, 'index'])->name('contacts.index');
         Route::post('contacts/{contact}/status', [AdminContactController::class, 'updateStatus'])->name('contacts.update-status');
         Route::delete('contacts/{contact}', [AdminContactController::class, 'destroy'])->name('contacts.destroy');
+        
+        Route::get('reviews', [AdminReviewController::class, 'index'])->name('reviews.index');
+        Route::post('reviews/{review}/status', [AdminReviewController::class, 'updateStatus'])->name('reviews.update-status');
+        Route::delete('reviews/{review}', [AdminReviewController::class, 'destroy'])->name('reviews.destroy');
     });
 });
