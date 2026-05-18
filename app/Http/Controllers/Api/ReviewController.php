@@ -46,7 +46,7 @@ class ReviewController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Review submitted successfully. It will be published after approval.',
+                'message' => 'Review submitted successfully.',
                 'data' => $review
             ], 201);
         } catch (\Exception $e) {

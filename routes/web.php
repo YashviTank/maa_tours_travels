@@ -60,6 +60,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::delete('contacts/{contact}', [AdminContactController::class, 'destroy'])->name('contacts.destroy');
         
         Route::get('reviews', [AdminReviewController::class, 'index'])->name('reviews.index');
+        Route::get('reviews/{review}', [AdminReviewController::class, 'show'])->name('reviews.show');
         Route::post('reviews/{review}/status', [AdminReviewController::class, 'updateStatus'])->name('reviews.update-status');
         Route::delete('reviews/{review}', [AdminReviewController::class, 'destroy'])->name('reviews.destroy');
     });

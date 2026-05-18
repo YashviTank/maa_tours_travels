@@ -64,21 +64,7 @@
                 <td>{{ $review->created_at->format('M d, Y') }}</td>
                 <td>
                     <div style="display: flex; gap: 8px; align-items: center;">
-                        @if($review->status !== 'approved')
-                        <form action="{{ route('admin.reviews.update-status', $review) }}" method="POST" style="margin: 0;">
-                            @csrf
-                            <input type="hidden" name="status" value="approved">
-                            <button type="submit" class="btn btn-sm btn-success">Approve</button>
-                        </form>
-                        @endif
-                        
-                        @if($review->status !== 'rejected')
-                        <form action="{{ route('admin.reviews.update-status', $review) }}" method="POST" style="margin: 0;">
-                            @csrf
-                            <input type="hidden" name="status" value="rejected">
-                            <button type="submit" class="btn btn-sm btn-warning">Reject</button>
-                        </form>
-                        @endif
+                        <a href="{{ route('admin.reviews.show', $review) }}" class="btn btn-sm btn-primary">View</a>
                         
                         <form action="{{ route('admin.reviews.destroy', $review) }}" method="POST" style="margin: 0;" onsubmit="return confirm('Are you sure you want to delete this review?')">
                             @csrf

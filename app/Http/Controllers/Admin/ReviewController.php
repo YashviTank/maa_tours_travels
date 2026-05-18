@@ -17,6 +17,13 @@ class ReviewController extends Controller
         return view('admin.reviews.index', compact('reviews'));
     }
 
+    public function show(Review $review)
+    {
+        $review->load('tour:id,title');
+        
+        return view('admin.reviews.show', compact('review'));
+    }
+
     public function updateStatus(Request $request, Review $review)
     {
         $request->validate([
